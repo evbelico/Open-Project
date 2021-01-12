@@ -1,0 +1,83 @@
+scalar DateTime
+
+# interface Message {
+#   message: String
+#   messageCode: Int
+# }
+
+type User {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: String!
+  password: String!
+  createdAt: DateTime
+  forumValidated: Int
+  matchingValidated: Int
+  # message: String,
+  # messageCode: Int
+}
+
+type Profile {
+  id: ID!
+  bio: String
+  userId: User!
+  pseudonym: String!
+  gender: String!
+  orientation: String!
+  attractions: [String!]
+  platAttractions: [String!]
+  matchTypes: [String!]!
+  userTags: [Tag!]!
+}
+
+type Post {
+  id: ID!
+  authorId: User!
+  createdAt: DateTime
+  title: String!
+  content: String!
+  upVotes: Int!
+  downVotes: Int!
+  totalVotes: Int!
+}
+
+type Tag {
+  id: ID!
+  name: String!
+}
+
+# type Token implements Message {
+#   id: ID!
+#   userId: User!
+#   createdAt: DateTime
+#   token: String!
+#   expired: Int!
+#   message: String
+#   messageCode: Int
+# }
+
+type Query {
+  me: User
+  hello: String
+}
+
+type Mutation {
+  signup(data: UserCreateInput!): User!
+  testSignup(
+    firstName: String
+    lastName: String
+    email: String!
+    password: String!
+  ): User!
+  sequelizeSignup(email: String!, password: String!, pseudonym: String): User
+  #   verifySignupToken(token: String!): Message!
+}
+
+input UserCreateInput {
+  firstName: String
+  lastName: String
+  email: String!
+  password: String!
+  createdAt: DateTime
+}
