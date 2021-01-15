@@ -83,6 +83,12 @@ const linksData = [
     caption: 'Community Quasar projects',
     icon: 'favorite',
     link: 'https://awesome.quasar.dev'
+  },
+  {
+    title: 'Sign up page',
+    caption: 'Hello',
+    icon: 'fa-save',
+    link: '/signup'
   }
 ];
 
