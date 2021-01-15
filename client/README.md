@@ -1,5 +1,11 @@
 # open-project (open-project) _[for now there is nothing here]_
 
+## Install quasar cli
+
+```bash
+npm install -g @quasar/cli
+```
+
 ## Install the dependencies
 
 ```bash
