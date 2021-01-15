@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="lHh Lpr lFf" class="shadow-2 rounded-borders">
+    <q-header elevated class="bg-black">
       <q-toolbar>
         <q-btn
           flat
@@ -12,24 +12,16 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          <a href="/">Service People</a>
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Pré alpha v1.0.0</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above>
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
+        <q-item-label header class="text-grey-8">
           Essential Links
         </q-item-label>
         <EssentialLink
@@ -47,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue'
+import EssentialLink from 'components/EssentialLink.vue';
 
 const linksData = [
   {
@@ -103,7 +95,7 @@ export default defineComponent({
     const leftDrawerOpen = ref(false);
     const essentialLinks = ref(linksData);
 
-    return {leftDrawerOpen, essentialLinks}
+    return { leftDrawerOpen, essentialLinks };
   }
 });
 </script>

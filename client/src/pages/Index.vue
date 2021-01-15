@@ -1,11 +1,18 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <example-component
+    <!-- <example-component
       title="Example component"
       active
       :todos="todos"
       :meta="meta"
-    ></example-component>
+    ></example-component> -->
+    <q-btn
+      type="a"
+      href="/signup"
+      label="Go to sign up page"
+      push
+      color="black"
+    />
   </q-page>
 </template>
 
