@@ -11,9 +11,11 @@ type User {
   lastName: String
   email: String!
   password: String!
+  birthday: DateTime!
   createdAt: DateTime
   forumValidated: Int
   matchingValidated: Int
+  servicesValidated: Int
   # message: String,
   # messageCode: Int
 }
@@ -70,7 +72,7 @@ type Mutation {
     email: String!
     password: String!
   ): User!
-  sequelizeSignup(email: String!, password: String!, pseudonym: String): User
+  sequelizeSignup(email: String!, password: String!, birthday: DateTime!): User
   #   verifySignupToken(token: String!): Message!
 }
 

@@ -24,7 +24,7 @@ const UserModel = <UserInstance>database.define('user', {
     },
     pseudonym: {
         type: DataTypes.STRING,
-        allowNull: false,
+        // allowNull: false,
     },
     password: {
         type: DataTypes.STRING,
@@ -36,7 +36,7 @@ const UserModel = <UserInstance>database.define('user', {
     },
     birthday: {
         type: DataTypes.DATE,
-        // allowNull: false,
+        allowNull: false,
     },
 });
 

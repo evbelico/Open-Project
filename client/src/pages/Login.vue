@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <h2>Howdy people</h2>
+    <h2>Howdy people this is the LOGIN page</h2>
   </q-page>
 </template>
 
@@ -8,7 +8,7 @@
 import { defineComponent, ref } from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'PageIndex',
+  name: 'LoginPage',
   setup() {}
 });
 </script>

@@ -38,7 +38,7 @@ export const resolvers = {
 
           return await models.User.create({
             email: args.email,
-            pseudonym: args.pseudonym,
+            birthday: args.birthday,
             password: hash,
           });
         } catch(error) {

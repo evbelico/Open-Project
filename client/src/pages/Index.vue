@@ -6,13 +6,7 @@
       :todos="todos"
       :meta="meta"
     ></example-component> -->
-    <q-btn
-      type="a"
-      href="/signup"
-      label="Go to sign up page"
-      push
-      color="black"
-    />
+    <q-btn type="a" href="/login" label="Go to login page" push color="black" />
   </q-page>
 </template>
 

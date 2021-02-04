@@ -1,22 +1,37 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="shadow-2 rounded-borders">
-    <q-header elevated class="bg-black">
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
+    <q-header elevated class="header-bg">
+      <div class="row items-center">
+        <q-toolbar class="q-my-md">
+          <q-btn
+            flat
+            dense
+            round
+            icon="menu"
+            aria-label="Menu"
+            @click="leftDrawerOpen = !leftDrawerOpen"
+          />
 
-        <q-toolbar-title>
-          <a href="/">Service People</a>
-        </q-toolbar-title>
+          <q-img src="icons/scarabee.png" style="max-width: 4rem" contain />
+          <q-toolbar-title class="header-font-color">
+            <a href="/">Scarabée</a>
+          </q-toolbar-title>
 
-        <div>Pré alpha v1.0.0</div>
-      </q-toolbar>
+          <div>v1.0.0</div>
+        </q-toolbar>
+      </div>
+      <div class="row items-center justify-center">
+        <q-tabs v-model="tab" class="text-theme" no-caps @click="printTab">
+          <q-tab name="matching" label="Matching" />
+          <q-tab name="forum" label="Forum" />
+          <q-tab
+            name="services"
+            label="Services"
+            to="/"
+            active-class="services-tab"
+          />
+        </q-tabs>
+      </div>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above>
@@ -85,10 +100,10 @@ const linksData = [
     link: 'https://awesome.quasar.dev'
   },
   {
-    title: 'Sign up page',
-    caption: 'Hello',
-    icon: 'fa-save',
-    link: '/signup'
+    title: 'Login page !',
+    caption: "Hello here is the forum's login page",
+    icon: 'fa fa-save',
+    link: '/login'
   }
 ];
 
@@ -100,8 +115,35 @@ export default defineComponent({
   setup() {
     const leftDrawerOpen = ref(false);
     const essentialLinks = ref(linksData);
+    let tab = ref('services');
 
-    return { leftDrawerOpen, essentialLinks };
+    function printTab() {
+      console.log(tab.value);
+    }
+
+    return { leftDrawerOpen, essentialLinks, tab, printTab };
   }
 });
 </script>
+
+<style>
+.header-bg {
+  background-color: #30304c;
+}
+
+.header-font-color,
+.header-font-color a {
+  color: #f2c98f;
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: 200;
+}
+
+.text-theme {
+  color: #f2c98f;
+}
+
+.services-tab {
+  background-color: #4f7a8e;
+}
+</style>
