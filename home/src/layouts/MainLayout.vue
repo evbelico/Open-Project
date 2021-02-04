@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="shadow-2 rounded-borders">
-    <q-header elevated class="header-bg">
+    <q-header elevated class="bg-theme">
       <div class="row items-center">
         <q-toolbar class="q-my-md">
           <q-btn
@@ -17,19 +17,52 @@
             <a href="/">Scarabée</a>
           </q-toolbar-title>
 
-          <div>v1.0.0</div>
+          <q-btn
+            color="primary"
+            text-color="secondary"
+            label="S'inscrire"
+            no-caps
+            to="/register"
+          />
+          <q-btn
+            color="secondary"
+            text-color="primary"
+            label="Se connecter"
+            no-caps
+            to="/login"
+          />
         </q-toolbar>
       </div>
       <div class="row items-center justify-center">
-        <q-tabs v-model="tab" class="text-theme" no-caps @click="printTab">
-          <q-tab name="matching" label="Matching" />
-          <q-tab name="forum" label="Forum" />
-          <q-tab
-            name="services"
-            label="Services"
+        <q-tabs
+          v-model="tab"
+          class="text-theme"
+          no-caps
+          @click="printTab"
+          stretch
+        >
+          <q-route-tab
+            name="about"
+            label="Scarabée c'est quoi ?"
             to="/"
-            active-class="services-tab"
+            exact
+            active-class="about-tab"
           />
+          <q-route-tab
+            name="communaute"
+            label="Communauté"
+            to="/community"
+            exact
+            active-class="about-tab"
+          />
+          <q-route-tab name="forum" to="/" label="Forum" />
+          <q-route-tab
+            name="services"
+            to="/redirect-services"
+            exact
+            label="Services"
+          />
+          <q-route-tab name="rencontres" to="/" label="Rencontres" />
         </q-tabs>
       </div>
     </q-header>
@@ -54,7 +87,7 @@
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue';
+import EssentialLink from '../components/EssentialLink.vue';
 
 const linksData = [
   {
@@ -115,7 +148,7 @@ export default defineComponent({
   setup() {
     const leftDrawerOpen = ref(false);
     const essentialLinks = ref(linksData);
-    let tab = ref('services');
+    let tab = ref('about');
 
     function printTab() {
       console.log(tab.value);
@@ -127,8 +160,12 @@ export default defineComponent({
 </script>
 
 <style>
-.header-bg {
-  background-color: #30304c;
+.bg-theme {
+  background: #30304c;
+}
+
+.text-theme {
+  color: #f2c98f;
 }
 
 .header-font-color,
@@ -139,11 +176,7 @@ export default defineComponent({
   font-weight: 200;
 }
 
-.text-theme {
-  color: #f2c98f;
-}
-
-.services-tab {
-  background-color: #4f7a8e;
+.link-no-decoration {
+  text-decoration: none;
 }
 </style>

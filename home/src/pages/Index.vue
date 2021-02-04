@@ -1,18 +1,17 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <!-- <example-component
+    <example-component
       title="Example component"
       active
       :todos="todos"
       :meta="meta"
-    ></example-component> -->
-    <q-btn type="a" href="/login" label="Go to login page" push color="black" />
+    ></example-component>
   </q-page>
 </template>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/CompositionComponent.vue';
+import { Todo, Meta } from '../components/models';
+import ExampleComponent from '../components/CompositionComponent.vue';
 import { defineComponent, ref } from '@vue/composition-api';
 
 export default defineComponent({
