@@ -4,7 +4,7 @@
 
 home/node_modules/
 home/dist/
-services/src-ssr/
+home/src-ssr/
 
 services/node_modules/
 services/dist/
