@@ -20,6 +20,7 @@
           <q-btn
             color="primary"
             text-color="secondary"
+            class="q-mx-sm"
             label="S'inscrire"
             no-caps
             to="/register"
@@ -27,6 +28,7 @@
           <q-btn
             color="secondary"
             text-color="primary"
+            class="q-mx-sm"
             label="Se connecter"
             no-caps
             to="/login"
