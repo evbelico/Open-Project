@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const Sequelize = require('sequelize');
 
-export const database = new Sequelize('postgres://madmonsieur:B@b@082020Yaga!@localhost:5432/open_project',
+export const database = new Sequelize('postgres://op_admin:B@b@082020Yaga!@op_db:5432/open_project',
     // (process.env.DATABASE),
     // (process.env.DATABASE_USER),
     // (process.env.DATABASE_PASSWORD), {
@@ -20,14 +20,6 @@ export const database = new Sequelize('postgres://madmonsieur:B@b@082020Yaga!@lo
         // },
 );
 
-// console.log(process.env.DATABASE)
 // database.authenticate()
 // .then( console.dir('Database connection established.') )
 // .catch(err => console.error('An error happened during DB connection : ', err)); 
-
-// const connectDb = (err => {
-    // if (err) console.error("Error db :", err);
-    // sequelize.authenticate();
-// })
-
-// const test = connectDb;

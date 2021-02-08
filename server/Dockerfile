@@ -29,6 +29,6 @@ ADD . /server/src/app
 RUN npm run build
 # RUN npx run tsc
 
-EXPOSE 7001
+EXPOSE 4001
 # Start
 CMD ["npm", "run", "start:watch"]

@@ -17,6 +17,7 @@ const UserModel = <UserInstance>database.define('user', {
         primaryKey: true,
         autoIncrement: true,
         type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,

@@ -62,17 +62,18 @@ type Tag {
 type Query {
   me: User
   hello: String
+  getAllUsers: User
 }
 
 type Mutation {
-  signup(data: UserCreateInput!): User!
+  # signup(data: UserCreateInput!): User!
   testSignup(
     firstName: String
     lastName: String
     email: String!
     password: String!
   ): User!
-  sequelizeSignup(email: String!, password: String!, birthday: DateTime!): User
+  register(email: String!, password: String!, birthday: DateTime!): User
   #   verifySignupToken(token: String!): Message!
 }
 
