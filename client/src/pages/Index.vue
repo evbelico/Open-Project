@@ -6,6 +6,7 @@
       :todos="todos"
       :meta="meta"
     ></example-component>
+    <b>bloublou</b>
   </q-page>
 </template>
 
@@ -47,3 +48,8 @@ export default defineComponent({
   }
 });
 </script>
+<style>
+* {
+  font-family: 'BarlowSemiCondensed-Regular';
+}
+</style>
