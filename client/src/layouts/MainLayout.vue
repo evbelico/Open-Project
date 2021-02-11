@@ -7,9 +7,9 @@
             <!-- <q-img src="~assets/scarabee.png" style="max-width: 4rem" contain /> -->
             <a href="/">
               <q-img
-                src="~assets/scarabee_home.svg"
+                src="~assets/Logo.svg"
                 alt="Scarabée logo"
-                width="300px"
+                width="230px"
                 contain
                 no-default-spinner
               />
