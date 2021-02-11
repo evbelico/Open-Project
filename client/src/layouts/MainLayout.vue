@@ -59,26 +59,21 @@
             >
               <q-route-tab
                 name="about"
-                label="Scarabée c'est quoi ?"
                 to="/"
                 exact
                 active-class="about-tab"
-              />
+              >Scarabée c'est quoi ?</q-route-tab>
               <q-route-tab
                 name="communaute"
-                label="Communauté"
                 to="/community"
                 exact
-                active-class="about-tab"
-              />
-              <q-route-tab name="forum" to="/" label="Forum" />
+                active-class="about-tab">Communauté</q-route-tab>
+              <q-route-tab name="forum" to="/">Forum</q-route-tab>
               <q-route-tab
                 name="services"
                 to="/redirect-services"
-                exact
-                label="Services"
-              />
-              <q-route-tab name="rencontres" to="/" label="Rencontres" />
+                exact>Services</q-route-tab>
+              <q-route-tab name="rencontres" to="/">Rencontres</q-route-tab>
             </q-tabs>
           </div>
         </div>
