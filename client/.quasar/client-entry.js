@@ -14,8 +14,6 @@ import 'quasar/dist/quasar.ie.polyfills.js'
 
 
 
-import '@quasar/extras/roboto-font/roboto-font.css'
-
 import '@quasar/extras/material-icons/material-icons.css'
 
 
@@ -27,7 +25,7 @@ import 'quasar/dist/quasar.sass'
 
 
 
-import 'src/css/app.scss'
+import 'src/css/app.sass'
 
 
 import Vue from 'vue'
