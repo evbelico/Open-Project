@@ -31,7 +31,7 @@ module.exports = configure(function (ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.scss'
+      'app.sass'
     ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
@@ -125,9 +125,9 @@ module.exports = configure(function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'open-project',
-        short_name: 'open-project',
-        description: '',
+        name: 'Open-project-home',
+        short_name: 'Open-project-home',
+        description: 'Open Project\'s home app',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -192,7 +192,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'open-project'
+        appId: 'open-project-home'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

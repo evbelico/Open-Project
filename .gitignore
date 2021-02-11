@@ -1,5 +1,18 @@
 .vscode/
+.gitignore
+.dockerignore
+
+home/node_modules/
+home/dist/
+home/src-ssr/
 
 client/node_modules/
+client/dist/
+client/src-ssr/
+
+services/node_modules/
+services/dist/
+services/src-ssr/
+
 server/node_modules/
 server/dist/

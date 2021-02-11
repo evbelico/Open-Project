@@ -1,8 +1,8 @@
 {
-  "name": "open-project",
+  "name": "open-project-home",
   "version": "0.0.1",
-  "description": "",
-  "productName": "open-project",
+  "description": "Open Project's home app",
+  "productName": "Open-project-home",
   "author": "evbelico@github.com",
   "private": true,
   "scripts": {

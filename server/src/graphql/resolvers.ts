@@ -1,7 +1,7 @@
 // @ts-check
 require('dotenv').config();
 const bcrypt = require('bcrypt');
-const saltRounds = parseInt(process.env.SALT);
+const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 const nodemailer = require('nodemailer');
 // const crypto = require('crypto');
@@ -10,13 +10,6 @@ import { UserInstance } from '../models/user'
 import models from '../models';
 
 export const resolvers = {
-  // Message: {
-  //   __resolveType: (obj, context, info) => {
-  //     console.log('Message ??? : ', obj);
-  //     if (obj.message && obj.messageCode) return "Token";
-  //     return null;
-  //   },
-  // },
   // Queries, a.k.a Read operations (does not alter data)
     Query: {
       me: () => {
@@ -25,39 +18,34 @@ export const resolvers = {
         };
       },
       hello: () => {
-        return 'Hello World !'
+        return 'Hello World !';
       },
+      getAllUsers: async (parent, args, { models }): Promise<UserInstance> => {
+        console.log("Get All Users args :", args);
+        const data = await models.User.findAll();
+        const usersData = await data.map(user => user);
+        console.log("Hello ?", await usersData);
+        // console.log("users data: ", await usersData.user.dataValues);
+        return usersData;
+      }
     },
     // Mutations, a.k.a Create/Update/Delete operations
     Mutation: {
-      sequelizeSignup: async (parent, args, { models }): Promise<UserInstance> => {
-        console.log("Signup Sequelize args: ", args);
+      register: async (parent, args, { models }): Promise<UserInstance> => {
+        console.log("Signup : ", args);
         console.log("Hello ?", { models });
         try {
           const hash: string = await bcrypt.hash(args.password, saltRounds);
 
           return await models.User.create({
             email: args.email,
-            pseudonym: args.pseudonym,
+            birthday: args.birthday,
             password: hash,
           });
         } catch(error) {
           console.error("Error in user creation SEQUELIZE :", error);
         }
       },
-        signup: async (parent, args, ctx) => {
-          console.log("Signup server args :", args);
-
-            try {
-              const data = args;
-
-              const payload = await ctx.prisma.users.create({
-                data: { args },
-              });
-
-              return payload;
-            } catch (error) { console.error(error); }
-        },
         // Function for user creation tests purposes
         // Will need to be split in multiple functions later on
         testSignup: async (parent, args, ctx) => {
@@ -129,60 +117,6 @@ export const resolvers = {
               console.error('Error :', error);
             }
         },
-        // Function for sign-up token validation
-        // verifySignupToken: async (parent, args, ctx) => {
-        //   console.log(args);
-        //   try {
-
-        //   const sentToken = args.token;
-        //   console.log('value :', sentToken);
-
-        //   let messages = { message: 'Empty', messageCode: -1 };
-
-        //   // Locate token in database
-        //     const tokenLinked = await ctx.prisma.tokens.findOne({
-        //       where: { token: sentToken },
-        //     });
-        //     // if (tokenLinked == null) throw new Error('Token not found.');
-        //     if (!tokenLinked) messages = { message: 'Token not found.', messageCode: -1 };
-
-        //     // If the token exists, proceed to verify if it is still valid (not expired)
-        //     else {
-        //       console.log("Token linked in else statement :", tokenLinked);
-
-        //       // If token is invalid or has expired, throw error
-        //       // if (tokenLinked.expired == 1) throw new Error('Token already validated or expired.');
-        //       if (tokenLinked.expired == 1) messages = { message: 'Token already validated or expired.', messageCode: -1 };
-
-        //       // If token is valid / has not yet expired, proceed to update its validity
-        //       else if (tokenLinked.expired == 0) {
-        //         const validateToken = await ctx.prisma.tokens.update({
-        //           where: { id: tokenLinked.id },
-        //           data: { expired: 1 },
-        //         });
-        //         // if (!validateToken) throw new Error('Could not validate token.');
-        //         if (!validateToken) messages = { message: 'Could not validate token.', messageCode: -1 };
-                
-        //         // Then proceed to grant the user access to the forum
-        //         const validateUser = await ctx.prisma.users.update({
-        //           where: { id: tokenLinked.userId },
-        //           data: { forumValidated: 1 },
-        //         });
-        //         // if (!validateUser) throw new Error('Could not validate user.');
-        //         if (!validateUser) messages = { message: 'Could not validate user.', messageCode: -1 };
-
-        //         console.log('Validate token in else stat. :', validateToken);
-        //         console.log('Validate user in else :', validateUser);
-        //       }
-        //       console.log('Return token :', tokenLinked);
-            
-        //       return messages;
-        //     }
-            
-        //   } catch (error) {
-        //     console.error(error);
-        //   }
-        // }
     },
   };
 

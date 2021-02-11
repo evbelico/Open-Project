@@ -1,35 +1,26 @@
-# open-project (open-project) _[for now there is nothing here]_
+# Open-project-home (open-project-home)
 
-## Install quasar cli
-
-```bash
-npm install -g @quasar/cli
-```
+Open Project's home app
 
 ## Install the dependencies
-
 ```bash
 npm install
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
-
 ```bash
 quasar dev
 ```
 
 ### Lint the files
-
 ```bash
 npm run lint
 ```
 
 ### Build the app for production
-
 ```bash
 quasar build
 ```
 
 ### Customize the configuration
-
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).

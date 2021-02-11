@@ -17,6 +17,7 @@ const UserModel = <UserInstance>database.define('user', {
         primaryKey: true,
         autoIncrement: true,
         type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,
@@ -24,7 +25,7 @@ const UserModel = <UserInstance>database.define('user', {
     },
     pseudonym: {
         type: DataTypes.STRING,
-        allowNull: false,
+        // allowNull: false,
     },
     password: {
         type: DataTypes.STRING,
@@ -36,7 +37,7 @@ const UserModel = <UserInstance>database.define('user', {
     },
     birthday: {
         type: DataTypes.DATE,
-        // allowNull: false,
+        allowNull: false,
     },
 });
 

@@ -5,10 +5,14 @@ const routes: RouteConfig[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/Index.vue') },
+      { path: '/register', component: () => import('pages/Register.vue') },
     ]
   },
-
+  { 
+    path: '/redirect-services',
+    beforeEnter() { window.location.href = 'http://localhost:8081' }
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

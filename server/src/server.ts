@@ -73,26 +73,26 @@ app.get('/health', (req, res) => {
 ** Useful for now, but please prefer `database.authenticate()` once deploying to production :)
 */
 
-database
-.sync().then(() => {
-  app.listen({ port: PORT }, err => {
-    if (err) {
-      return console.error(err);
-    }
-    console.log(`🚀 Apollo Server ready at http://localhost:${PORT}/graphql`);
-  });
-  console.log("Database connection established FROM SERVER");
-  // console.log("Hello DB :", database);
-})
-.catch((error) => {
-  console.error("ERR : ", error);
-});
+// database
+// .sync().then(() => {
+//   app.listen({ port: PORT }, err => {
+//     if (err) {
+//       return console.error(err);
+//     }
+//     console.log(`🚀 Apollo Server ready at http://localhost:${PORT}/graphql`);
+//   });
+//   console.log("Database connection established FROM SERVER");
+//   // console.log("Hello DB :", database);
+// })
+// .catch((error) => {
+//   console.error("ERR : ", error);
+// });
 
 /* Sequelize instance to simply connect to the DB (using postgres credentials)
 ** Use it to : connect to the db but not create tables, thus keeping the database intact (no deletions)
 */
 
-/* database
+database
 .authenticate().then(() => {
   app.listen({ port: PORT }, err => {
     if (err) {
@@ -105,4 +105,4 @@ database
 .catch((error) => {
   console.error('An error happened during DB connection : ', error);
 }); 
-*/
+
