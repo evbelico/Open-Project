@@ -4,9 +4,10 @@ const bcrypt = require('bcrypt');
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 const nodemailer = require('nodemailer');
-// const crypto = require('crypto');
+const crypto = require('crypto');
 
-import { UserInstance } from '../models/user'
+import { UserAttributes, UserCreationAttributes } from '../models/user'
+import { TokenAttributes, TokenCreationAttributes } from '../models/tokens'
 import models from '../models';
 
 export const resolvers = {
@@ -20,32 +21,45 @@ export const resolvers = {
       hello: () => {
         return 'Hello World !';
       },
-      getAllUsers: async (parent, args, { models }): Promise<UserInstance> => {
-        console.log("Get All Users args :", args);
-        const data = await models.User.findAll();
-        const usersData = await data.map(user => user);
-        console.log("Hello ?", await usersData);
-        // console.log("users data: ", await usersData.user.dataValues);
-        return usersData;
+      getAllUsers: async (parent, args, { models }): Promise<UserAttributes> => {
+        return await models.User.findAll();
+      },
+      getAllTokens: async (parent, args, { models}): Promise<TokenAttributes> => {
+        const bigTest = await models.Token.findAll();
+        console.log("Get all tokens test:", bigTest);
+        return bigTest;
       }
     },
     // Mutations, a.k.a Create/Update/Delete operations
     Mutation: {
-      register: async (parent, args, { models }): Promise<UserInstance> => {
+      modifierNom: async (args, { models }) => {
+        var toto = 1;
+      },
+      // Account creation mutation
+      register: async (parent, args, { models }): Promise<UserCreationAttributes> => {
         console.log("Signup : ", args);
         console.log("Hello ?", { models });
         try {
           const hash: string = await bcrypt.hash(args.password, saltRounds);
+          const tokenHash: string = await crypto.randomBytes(46).toString('hex');
 
-          return await models.User.create({
+          const userData: UserCreationAttributes = await models.User.create({
             email: args.email,
             birthday: args.birthday,
             password: hash,
+            token: tokenHash,
+            tokenExpired: false,
           });
+          
+          return userData;
         } catch(error) {
           console.error("Error in user creation SEQUELIZE :", error);
         }
       },
+      // Verify token created on account creation
+      // registerToken: async (parent, args, { models }) => {
+
+      // },
         // Function for user creation tests purposes
         // Will need to be split in multiple functions later on
         testSignup: async (parent, args, ctx) => {
