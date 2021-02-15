@@ -1,3 +1,5 @@
+// @ts-check
+
 import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 import { HasManyGetAssociationsMixin, HasManyAddAssociationMixin, HasManyHasAssociationMixin, Association, HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, Optional } from 'sequelize';
 import { createEmitAndSemanticDiagnosticsBuilderProgram } from "typescript";

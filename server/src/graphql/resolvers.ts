@@ -8,6 +8,7 @@ const crypto = require('crypto');
 
 import { UserAttributes, UserCreationAttributes } from '../models/user'
 import { TokenAttributes, TokenCreationAttributes } from '../models/tokens'
+import { sendRegistrationMail } from '../utils/mailingFuncs'
 import models from '../models';
 
 export const resolvers = {
@@ -51,6 +52,9 @@ export const resolvers = {
             tokenExpired: false,
           });
           
+          const sendmail = await sendRegistrationMail(args.email, tokenHash);
+          console.log("Sending mail :", sendmail);
+
           return userData;
         } catch(error) {
           console.error("Error in user creation SEQUELIZE :", error);
