@@ -7,17 +7,15 @@ scalar DateTime
 
 type User {
   id: ID!
-  firstName: String
-  lastName: String
   email: String!
   password: String!
   birthday: DateTime!
+  token: String!
+  tokenExpired: Boolean!
   createdAt: DateTime
   forumValidated: Int
   matchingValidated: Int
   servicesValidated: Int
-  # message: String,
-  # messageCode: Int
 }
 
 type Profile {
@@ -49,20 +47,21 @@ type Tag {
   name: String!
 }
 
-# type Token implements Message {
-#   id: ID!
-#   userId: User!
-#   createdAt: DateTime
-#   token: String!
-#   expired: Int!
-#   message: String
-#   messageCode: Int
-# }
+type Token {
+  id: ID!
+  content: String!
+  payloadType: String!
+  userId: User
+  createdAt: DateTime
+  expired: Int
+  UserId: Int
+}
 
 type Query {
   me: User
   hello: String
-  getAllUsers: User
+  getAllUsers: [User]
+  getAllTokens: [Token]
 }
 
 type Mutation {
@@ -74,6 +73,7 @@ type Mutation {
     password: String!
   ): User!
   register(email: String!, password: String!, birthday: DateTime!): User
+  modifierNom(email: String): User
   #   verifySignupToken(token: String!): Message!
 }
 

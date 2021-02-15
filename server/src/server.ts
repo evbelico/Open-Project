@@ -11,35 +11,6 @@ import { resolvers } from './graphql/resolvers';
 import { typeDefs } from './graphql/schema';
 import models from './models';
 
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-];
-
-// const resolvers = {
-//   Query: {
-//     books: () => books,
-//   },
-// };
-
-
-// const typeDefs = gql`
-// 	type Book {
-//     	title: String
-//     	author: String
-//   	}
-
-// 	type Query {
-// 		books: [Book]
-// 	}
-// `;
-
 const apolloSchema = makeExecutableSchema({
   typeDefs,
   resolvers
@@ -68,41 +39,42 @@ app.get('/health', (req, res) => {
   res.send('It\'s all good here. :)');
 });
 
-/* Sequelize instance to connect to the DB (using postgres credentials) ANDDDD create tables which don't exist yet
+/* Sequelize instance to connect to the DB (using postgres credentials) ANDDDD! create tables which don't exist yet
 ** Use it to : connect to the db AND create tables, thus altering the database (and possibly DELETE what's inside)
 ** Useful for now, but please prefer `database.authenticate()` once deploying to production :)
 */
 
+database
+.sync().then(() => {
+  app.listen({ port: PORT }, err => {
+    if (err) {
+      return console.error(err);
+    }
+    console.log("New changes coming miour?");
+    console.log(`🚀 Apollo Server ready at http://localhost:${PORT}/graphql`);
+  });
+  console.log("Database connection established FROM SERVER");
+  // console.log("Hello DB :", database);
+})
+.catch((error) => {
+  console.error("ERR : ", error);
+});
+
+/* Sequelize instance to simply connect to the DB (using postgres credentials)
+** Use it to : connect to the db but not create tables, thus keeping the database intact (no deletions)
+*/
+
 // database
-// .sync().then(() => {
+// .authenticate().then(() => {
 //   app.listen({ port: PORT }, err => {
 //     if (err) {
 //       return console.error(err);
 //     }
 //     console.log(`🚀 Apollo Server ready at http://localhost:${PORT}/graphql`);
 //   });
-//   console.log("Database connection established FROM SERVER");
-//   // console.log("Hello DB :", database);
+//   console.dir('Database connection established.') 
 // })
 // .catch((error) => {
-//   console.error("ERR : ", error);
+//   console.error('An error happened during DB connection : ', error);
 // });
-
-/* Sequelize instance to simply connect to the DB (using postgres credentials)
-** Use it to : connect to the db but not create tables, thus keeping the database intact (no deletions)
-*/
-
-database
-.authenticate().then(() => {
-  app.listen({ port: PORT }, err => {
-    if (err) {
-      return console.error(err);
-    }
-    console.log(`🚀 Apollo Server ready at http://localhost:${PORT}/graphql`);
-  });
-  console.dir('Database connection established.') 
-})
-.catch((error) => {
-  console.error('An error happened during DB connection : ', error);
-}); 
 

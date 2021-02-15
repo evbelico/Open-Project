@@ -31,4 +31,5 @@ RUN npm run build
 
 EXPOSE 4001
 # Start
-CMD ["npm", "run", "start:watch"]
+# CMD ["npm", "run", "start:watch"]
+CMD ["npm", "run", "start"]
