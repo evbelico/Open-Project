@@ -4,7 +4,6 @@ import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 import { HasManyGetAssociationsMixin, HasManyAddAssociationMixin, HasManyHasAssociationMixin, Association, HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, Optional } from 'sequelize';
 import { createEmitAndSemanticDiagnosticsBuilderProgram } from "typescript";
 import { database } from '../db/database'
-import Token from './tokens'
 
 export interface UserAttributes {
     id: number;
@@ -15,9 +14,10 @@ export interface UserAttributes {
     birthday?: Date;
     token: string;
     tokenExpired: boolean;
+    validated: boolean;
 }
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'pseudonym' | 'birthday'> {}
+export interface UserCreationAttributes extends Optional<UserAttributes, 'pseudonym' | 'birthday' | 'validated'> {}
 
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     public id!: number;
@@ -27,6 +27,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public pseudonym: string;
     public token!: string;
     public tokenExpired!: boolean;
+    public validated: boolean;
     
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -75,8 +76,13 @@ User.init(
         tokenExpired: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
-            // allowNull: false,
+            allowNull: false,
         },
+        validated: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false,
+        }
     },
     {
         sequelize: database,
