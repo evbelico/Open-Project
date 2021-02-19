@@ -4,7 +4,6 @@
       <div class="row items-center justify-evenly">
         <div class="col-12">
           <q-toolbar class="q-my-md">
-            <!-- <q-img src="~assets/scarabee.png" style="max-width: 4rem" contain /> -->
             <a href="/">
               <q-img
                 src="~assets/Logo.svg"
@@ -15,10 +14,6 @@
               />
             </a>
             <q-space />
-            <!-- <q-toolbar-title class="header-font-color">
-            <a href="/">Scarabée</a>
-          </q-toolbar-title> -->
-
             <q-btn
               color="primary"
               text-color="secondary"
@@ -48,42 +43,43 @@
             />
           </q-toolbar>
         </div>
-
       </div>
     </q-header>
     <div style="height:42px;">
       <div class="rect"></div>
-        <div class="row items-center gt-sm menu-tabs">
-          <div class="col-12">
-            <q-tabs
-              v-model="tab"
-              class="text-theme"
-              no-caps
-              @click="printTab"
-              stretch
-            >
-              <q-route-tab
+      <div class="row items-center gt-sm menu-tabs">
+        <div class="col-12">
+          <q-tabs
+            v-model="tab"
+            class="text-theme"
+            no-caps
+            @click="printTab"
+            stretch
+          >
+            <q-route-tab
               class="home"
-                name="about"
-                to="/"
-                exact
-                active-class="about-tab"
-              >Scarabée c'est quoi ?</q-route-tab>
-              <q-route-tab
-                name="communaute"
-                to="/community"
-                exact
-                active-class="about-tab">Communauté</q-route-tab>
-              <q-route-tab name="forum" to="/">Forum</q-route-tab>
-              <q-route-tab
-                name="services"
-                to="/redirect-services"
-                exact>Services</q-route-tab>
-              <q-route-tab name="rencontres" to="/">Rencontres</q-route-tab>
-            </q-tabs>
-          </div>
+              name="about"
+              to="/"
+              exact
+              active-class="about-tab"
+              >Scarabée c'est quoi ?</q-route-tab
+            >
+            <q-route-tab
+              name="communaute"
+              to="/community"
+              exact
+              active-class="about-tab"
+              >Communauté</q-route-tab
+            >
+            <q-route-tab name="forum" to="/">Forum</q-route-tab>
+            <q-route-tab name="services" to="/redirect-services" exact
+              >Services</q-route-tab
+            >
+            <q-route-tab name="rencontres" to="/">Rencontres</q-route-tab>
+          </q-tabs>
         </div>
       </div>
+    </div>
     <q-drawer v-model="leftDrawerOpen" class="lt-md">
       <q-list>
         <q-item-label header class="text-grey-8">
@@ -238,17 +234,18 @@ export default defineComponent({
 }
 
 .q-tab {
-    padding: 0 55px;
+  padding: 0 55px;
 }
 
 .q-tab--active .q-tab__indicator {
-    opacity: 0;
+  opacity: 0;
 }
 
-.q-tab--active, .home {
+.q-tab--active,
+.home {
   top: 13px;
   height: 75px;
-  background: #F2C98F;
+  background: #f2c98f;
   color: #30304c;
 }
 
