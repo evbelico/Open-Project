@@ -48,7 +48,12 @@
             />
           </q-toolbar>
         </div>
-        <div class="row items-center justify-center gt-sm">
+
+      </div>
+    </q-header>
+    <div style="height:42px;">
+      <div class="rect"></div>
+        <div class="row items-center gt-sm menu-tabs">
           <div class="col-12">
             <q-tabs
               v-model="tab"
@@ -58,6 +63,7 @@
               stretch
             >
               <q-route-tab
+              class="home"
                 name="about"
                 to="/"
                 exact
@@ -78,8 +84,6 @@
           </div>
         </div>
       </div>
-    </q-header>
-
     <q-drawer v-model="leftDrawerOpen" class="lt-md">
       <q-list>
         <q-item-label header class="text-grey-8">
@@ -209,5 +213,47 @@ export default defineComponent({
 
 .link-no-decoration {
   text-decoration: none;
+}
+
+.q-header {
+  position: unset;
+}
+
+.rect {
+  height: 42px;
+  background: #30304c;
+}
+
+.menu-tabs {
+  top: -85px;
+  position: relative;
+}
+
+.q-tabs__content {
+  height: 123px;
+}
+
+.self-stretch {
+  align-self: auto;
+}
+
+.q-tab {
+    padding: 0 55px;
+}
+
+.q-tab--active .q-tab__indicator {
+    opacity: 0;
+}
+
+.q-tab--active, .home {
+  top: 13px;
+  height: 75px;
+  background: #F2C98F;
+  color: #30304c;
+}
+
+.q-tab--active .q-tab__content {
+  font-family: BarlowSemiCondensed-Black;
+  justify-content: flex-end;
 }
 </style>
