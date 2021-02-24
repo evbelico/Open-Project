@@ -1,0 +1,1 @@
+echo "// Hello this is new test" >> ./src/server.ts

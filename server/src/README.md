@@ -14,6 +14,12 @@ _^ (if it fails, try : `npx tsc`)_
 
 <br/>
 
+### Tu run the server with _Docker_, run : `docker-compose up -d` (add `--build` when you want to rebuild the container)
+
+### To check the (server) docker container's logs, run : `docker logs --follow server`
+
+<br/>
+
 ### The server is running on : http://localhost:4001/
 
 ### The apollo graphql endpoint is located at : http://localhost:4001/graphql
