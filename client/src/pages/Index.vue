@@ -59,13 +59,6 @@ export default defineComponent({
 });
 </script>
 <style>
-* {
-  font-family: 'BarlowSemiCondensed-Regular';
-  font-size: 1.06rem;
-}
-.block {
-  font-family: 'BarlowSemiCondensed-Bold';
-}
 .q-page-container {
   padding-top: unset !important;
   /* background-image: url("~assets/layer.svg");; */

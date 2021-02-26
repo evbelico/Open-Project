@@ -57,7 +57,7 @@
             stretch
           >
             <q-route-tab
-              class="home"
+              class="home-link"
               name="about"
               to="/"
               exact
@@ -65,17 +65,22 @@
               >Scarabée c'est quoi ?</q-route-tab
             >
             <q-route-tab
-              name="communaute"
+              class="community-link"
+              name="community"
               to="/community"
               exact
               active-class="about-tab"
               >Communauté</q-route-tab
             >
-            <q-route-tab name="forum" to="/forum">Forum</q-route-tab>
-            <q-route-tab name="services" to="/services" exact
+            <q-route-tab class="forum-link" name="forum" to="/forum"
+              >Forum</q-route-tab
+            >
+            <q-route-tab class="services-link" name="services" to="/services" exact
               >Services</q-route-tab
             >
-            <q-route-tab name="rencontres" to="/meeting">Rencontres</q-route-tab>
+            <q-route-tab class="meeting-link" name="rencontres" to="/meeting"
+              >Rencontres</q-route-tab
+            >
           </q-tabs>
         </div>
       </div>
@@ -191,6 +196,14 @@ export default defineComponent({
 </script>
 
 <style>
+* {
+  font-family: BarlowSemiCondensed-Regular;
+  font-size: 1.06rem;
+}
+.block {
+  font-family: BarlowSemiCondensed-Bold;
+}
+
 .bg-theme {
   background: #30304c;
 }
@@ -241,11 +254,39 @@ export default defineComponent({
   opacity: 0;
 }
 
-.q-tab--active,
-.home {
+
+.home-link:focus-within { 
   top: 13px;
   height: 75px;
   background: #f2c98f;
+  color: #30304c;
+}
+
+.services-link:focus-within {
+  top: 13px;
+  height: 75px;
+  background: #7699AA;
+  color: #30304c;
+}
+
+.community-link:focus-within {
+  top: 13px;
+  height: 75px;
+  background: #f2c98f;
+  color: #30304c;
+}
+
+.forum-link:focus-within {
+  top: 13px;
+  height: 75px;
+  background: #A47A82;
+  color: #30304c;
+}
+
+.meeting-link:focus-within {
+  top: 13px;
+  height: 75px;
+  background: #DEE3FE;
   color: #30304c;
 }
 
