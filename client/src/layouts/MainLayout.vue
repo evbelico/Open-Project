@@ -8,7 +8,7 @@
               <q-img
                 src="~assets/Logo.svg"
                 alt="Scarabée logo"
-                width="230px"
+                width="13rem"
                 contain
                 no-default-spinner
               />
@@ -252,5 +252,19 @@ export default defineComponent({
 .q-tab--active .q-tab__content {
   font-family: BarlowSemiCondensed-Black;
   justify-content: flex-end;
+}
+
+html {
+  font-size: 12px;
+}
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(12px + 6 * ((100vw - 320px) / 680));
+  }
+}
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 18px;
+  }
 }
 </style>
