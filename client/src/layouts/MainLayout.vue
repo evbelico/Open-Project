@@ -71,11 +71,11 @@
               active-class="about-tab"
               >Communauté</q-route-tab
             >
-            <q-route-tab name="forum" to="/">Forum</q-route-tab>
-            <q-route-tab name="services" to="/redirect-services" exact
+            <q-route-tab name="forum" to="/forum">Forum</q-route-tab>
+            <q-route-tab name="services" to="/services" exact
               >Services</q-route-tab
             >
-            <q-route-tab name="rencontres" to="/">Rencontres</q-route-tab>
+            <q-route-tab name="rencontres" to="/meeting">Rencontres</q-route-tab>
           </q-tabs>
         </div>
       </div>
@@ -137,19 +137,19 @@ const linksData = [
     title: 'Forum',
     caption: 'Direction le forum',
     icon: 'fa fa-save',
-    link: '/redirect-forum'
+    link: '/forum'
   },
   {
     title: 'Services',
     caption: 'Direction les services',
     icon: 'fa fa-save',
-    link: '/redirect-services'
+    link: '/services'
   },
   {
     title: 'Rencontres',
     caption: 'Direction les rencontres',
     icon: 'fa fa-save',
-    link: '/redirect-meeting'
+    link: '/meeting'
   },
   {
     title: 'Discord Chat Channel',
