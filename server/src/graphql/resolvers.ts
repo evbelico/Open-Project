@@ -6,8 +6,15 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS);
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
+<<<<<<< HEAD
 import { UserAttributes, UserCreationAttributes } from '../models/user'
 import { TokenAttributes, TokenCreationAttributes } from '../models/tokens'
+=======
+import { UserAttributes, UserCreationAttributes } from '../models/user';
+import { TokenAttributes, TokenCreationAttributes } from '../models/tokens';
+import { checkPasswordFormat } from '../utils/userModelFuncs';
+import { sendRegistrationMail } from '../utils/mailingFuncs';
+>>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
 import models from '../models';
 
 export const resolvers = {
@@ -35,11 +42,30 @@ export const resolvers = {
       modifierNom: async (args, { models }) => {
         var toto = 1;
       },
+<<<<<<< HEAD
+=======
+      userExists: async (parent, email: string, { models }): Promise<any> => {
+        // console.log("User exists args :", email);
+
+        try {
+          const userData = await models.User.findOne({ where: { email: email }});
+          // console.log("User exists DATA :", userData);
+          if (userData !== null) {
+            return true;
+          } else {
+            return false;
+          }
+        } catch(error) {
+          console.error('Error happened in finding if user exists :', error);
+        }
+      },
+>>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
       // Account creation mutation
       register: async (parent, args, { models }): Promise<UserCreationAttributes> => {
         console.log("Signup : ", args);
-        console.log("Hello ?", { models });
+
         try {
+<<<<<<< HEAD
           const hash: string = await bcrypt.hash(args.password, saltRounds);
           const tokenHash: string = await crypto.randomBytes(46).toString('hex');
 
@@ -52,14 +78,82 @@ export const resolvers = {
           });
           
           return userData;
+=======
+          const passwordCheck = await checkPasswordFormat(args.password);
+          const doesUserExist = await resolvers.Mutation.userExists(parent, args.email, { models });
+          // console.log("Does user exist ?", doesUserExist);
+
+          if (doesUserExist === false) {
+            if (passwordCheck.returnValue == 1) {
+              const hash: string = await bcrypt.hash(args.password, saltRounds);
+              const tokenHash: string = await crypto.randomBytes(46).toString('hex');
+  
+              const userData: UserCreationAttributes = await models.User.create({
+                email: args.email,
+                birthday: args.birthday,
+                password: hash,
+                token: tokenHash,
+                tokenExpired: false,
+              });
+            
+              const sendmail = await sendRegistrationMail(args.email, tokenHash);
+              console.log("Sending mail :", sendmail);
+  
+              return userData;
+            } else {
+              throw new Error(`${passwordCheck.message}`);
+            }
+          } else {
+            throw new Error(`User already exists : ${doesUserExist}`);
+          }   
+>>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
         } catch(error) {
           console.error("Error in user creation SEQUELIZE :", error);
         }
       },
+<<<<<<< HEAD
       // Verify token created on account creation
       // registerToken: async (parent, args, { models }) => {
 
       // },
+=======
+      checkRegistrationToken: async (parent, sentToken: any, { models }): Promise<UserAttributes> => {
+        // console.log("Sent token :", sentToken.sentToken);
+        if (sentToken !== null) {
+          try {
+            console.log("Is it good ? :", sentToken.sentToken);
+            // Finds user based on its token string and token status (expired or not expired)
+            const userData: UserAttributes = await models.User.findOne({ where: {
+              token: sentToken.sentToken,
+              tokenExpired: false,
+              validated: false,
+            }});
+            // console.log("Hello data ?? : ", userData);
+            if (userData !== null) {
+              console.log("Not null USER DATA : ", userData);
+              const validateUser = await models.User.update({ 
+                tokenExpired: true,
+                validated: true,
+              }, {
+                where: {
+                  email: userData.email,
+                },
+              });
+              console.log("Verifying token + user data :", userData);
+              console.log('Trying to validate USER :', validateUser);
+              return userData;
+            } else {
+              throw new Error("Could not find user associated with token / token is expired / user is already validated");
+            }
+          } catch(error) {
+            console.error("Error happened in token validation :", error);
+          }
+          
+        } else {
+          throw new Error(`No token sent. See : ${sentToken}`);
+        }
+      },
+>>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
         // Function for user creation tests purposes
         // Will need to be split in multiple functions later on
         testSignup: async (parent, args, ctx) => {
