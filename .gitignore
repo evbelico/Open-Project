@@ -6,6 +6,7 @@ server_package_notes
 client/node_modules/
 client/dist/
 client/src-ssr/
+client/.quasar/
 
 server/node_modules/
 server/dist/

@@ -5,7 +5,8 @@ require('dotenv').config();
 
 const Sequelize = require('sequelize');
 
-export const database = new Sequelize('postgres://op_admin:B@b@082020Yaga!@op_db:5432/open_project',
+export const database = new Sequelize('postgres://postgres:B@b@082020Yaga!@localhost:5432/open_project',
+    // new Sequelize('postgres://op_admin:B@b@082020Yaga!@op_db:5432/open_project',
     // (process.env.DATABASE),
     // (process.env.DATABASE_USER),
     // (process.env.DATABASE_PASSWORD), {
