@@ -10,6 +10,7 @@ home/src-ssr/
 client/node_modules/
 client/dist/
 client/src-ssr/
+client/.quasar/
 
 old_services
 old_services/node_modules/
