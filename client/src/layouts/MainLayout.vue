@@ -4,21 +4,16 @@
       <div class="row items-center justify-evenly">
         <div class="col-12">
           <q-toolbar class="q-my-md">
-            <!-- <q-img src="~assets/scarabee.png" style="max-width: 4rem" contain /> -->
             <a href="/">
               <q-img
-                src="~assets/scarabee_home.svg"
+                src="~assets/Logo.svg"
                 alt="Scarabée logo"
-                width="300px"
+                width="13rem"
                 contain
                 no-default-spinner
               />
             </a>
             <q-space />
-            <!-- <q-toolbar-title class="header-font-color">
-            <a href="/">Scarabée</a>
-          </q-toolbar-title> -->
-
             <q-btn
               color="primary"
               text-color="secondary"
@@ -48,43 +43,48 @@
             />
           </q-toolbar>
         </div>
-        <div class="row items-center justify-center gt-sm">
-          <div class="col-12">
-            <q-tabs
-              v-model="tab"
-              class="text-theme"
-              no-caps
-              @click="printTab"
-              stretch
-            >
-              <q-route-tab
-                name="about"
-                label="Scarabée c'est quoi ?"
-                to="/"
-                exact
-                active-class="about-tab"
-              />
-              <q-route-tab
-                name="communaute"
-                label="Communauté"
-                to="/community"
-                exact
-                active-class="about-tab"
-              />
-              <q-route-tab name="forum" to="/" label="Forum" />
-              <q-route-tab
-                name="services"
-                to="/redirect-services"
-                exact
-                label="Services"
-              />
-              <q-route-tab name="rencontres" to="/" label="Rencontres" />
-            </q-tabs>
-          </div>
-        </div>
       </div>
     </q-header>
-
+    <div style="height:42px;">
+      <div class="rect"></div>
+      <div class="row items-center gt-sm menu-tabs">
+        <div class="col-12">
+          <q-tabs
+            v-model="tab"
+            class="text-theme"
+            no-caps
+            @click="printTab"
+            stretch
+          >
+            <q-route-tab
+              class="home-link"
+              name="about"
+              to="/"
+              exact
+              active-class="about-tab"
+              >Scarabée c'est quoi ?</q-route-tab
+            >
+            <q-route-tab
+              class="community-link"
+              name="community"
+              to="/community"
+              exact
+              active-class="about-tab"
+              >Communauté</q-route-tab
+            >
+            <q-route-tab class="forum-link" name="forum" to="/forum"
+              >Forum</q-route-tab
+            >
+            <q-route-tab class="services-link" name="services" to="/services" exact
+              >Services</q-route-tab
+            >
+            <q-route-tab class="meeting-link" name="rencontres" to="/meeting"
+              >Rencontres</q-route-tab
+            >
+          </q-tabs>
+        </div>
+      </div>
+    </div>
     <q-drawer v-model="leftDrawerOpen" class="lt-md">
       <q-list>
         <q-item-label header class="text-grey-8">
@@ -142,19 +142,19 @@ const linksData = [
     title: 'Forum',
     caption: 'Direction le forum',
     icon: 'fa fa-save',
-    link: '/redirect-forum'
+    link: '/forum'
   },
   {
     title: 'Services',
     caption: 'Direction les services',
     icon: 'fa fa-save',
-    link: '/redirect-services'
+    link: '/services'
   },
   {
     title: 'Rencontres',
     caption: 'Direction les rencontres',
     icon: 'fa fa-save',
-    link: '/redirect-meeting'
+    link: '/meeting'
   },
   {
     title: 'Discord Chat Channel',
@@ -196,6 +196,14 @@ export default defineComponent({
 </script>
 
 <style>
+* {
+  font-family: BarlowSemiCondensed-Regular;
+  font-size: 1.06rem;
+}
+.block {
+  font-family: BarlowSemiCondensed-Bold;
+}
+
 .bg-theme {
   background: #30304c;
 }
@@ -214,5 +222,90 @@ export default defineComponent({
 
 .link-no-decoration {
   text-decoration: none;
+}
+
+.q-header {
+  position: unset;
+}
+
+.rect {
+  height: 42px;
+  background: #30304c;
+}
+
+.menu-tabs {
+  top: -85px;
+  position: relative;
+}
+
+.q-tabs__content {
+  height: 123px;
+}
+
+.self-stretch {
+  align-self: auto;
+}
+
+.q-tab {
+  padding: 0 55px;
+}
+
+.q-tab--active .q-tab__indicator {
+  opacity: 0;
+}
+
+
+.home-link:focus-within { 
+  top: 13px;
+  height: 75px;
+  background: #f2c98f;
+  color: #30304c;
+}
+
+.services-link:focus-within {
+  top: 13px;
+  height: 75px;
+  background: #7699AA;
+  color: #30304c;
+}
+
+.community-link:focus-within {
+  top: 13px;
+  height: 75px;
+  background: #f2c98f;
+  color: #30304c;
+}
+
+.forum-link:focus-within {
+  top: 13px;
+  height: 75px;
+  background: #A47A82;
+  color: #30304c;
+}
+
+.meeting-link:focus-within {
+  top: 13px;
+  height: 75px;
+  background: #DEE3FE;
+  color: #30304c;
+}
+
+.q-tab--active .q-tab__content {
+  font-family: BarlowSemiCondensed-Black;
+  justify-content: flex-end;
+}
+
+html {
+  font-size: 12px;
+}
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(12px + 6 * ((100vw - 320px) / 680));
+  }
+}
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 18px;
+  }
 }
 </style>

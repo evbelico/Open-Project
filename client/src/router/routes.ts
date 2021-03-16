@@ -7,6 +7,10 @@ const routes: RouteConfig[] = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: '/register', component: () => import('pages/Register.vue') },
+      { path: '/community', component: () => import('pages/Community.vue') },
+      { path: '/services', component: () => import('pages/Services.vue') },
+      { path: '/meeting', component: () => import('pages/Meeting.vue') },
+      { path: '/forum', component: () => import('pages/Forum.vue') },
     ]
   },
   { 

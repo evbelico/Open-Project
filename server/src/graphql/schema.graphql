@@ -12,6 +12,10 @@ type User {
   birthday: DateTime!
   token: String!
   tokenExpired: Boolean!
+<<<<<<< HEAD
+=======
+  validated: Boolean!
+>>>>>>> origin/front-margot
   createdAt: DateTime
   forumValidated: Int
   matchingValidated: Int
@@ -73,6 +77,11 @@ type Mutation {
     password: String!
   ): User!
   register(email: String!, password: String!, birthday: DateTime!): User
+<<<<<<< HEAD
+=======
+  userExists(email: String!): User
+  checkRegistrationToken(sentToken: String!): User
+>>>>>>> origin/front-margot
   modifierNom(email: String): User
   #   verifySignupToken(token: String!): Message!
 }
