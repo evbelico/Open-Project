@@ -13,6 +13,9 @@ WORKDIR /server/src/app
 ENV PATH /server/src/app/node_modules/.bin:$PATH
 # Copy package.json file to work directory
 
+#Additionnal
+# RUN apt-get update
+
 COPY package.json .
 # COPY package.json /server/src/app/package.json
 # WORKDIR /server/src/app

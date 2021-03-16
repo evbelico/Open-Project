@@ -19,6 +19,7 @@ services:
       - /app/node_modules
       # - "./app:/server/src/app"
       # - "/server/src/app/node_modules"
+    working_dir: /server/src/app
   op_db:
     container_name: op_db
     image: postgres

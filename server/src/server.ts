@@ -43,14 +43,14 @@ app.get('/health', (req, res) => {
 ** Use it to : connect to the db AND create tables, thus altering the database (and possibly DELETE what's inside)
 ** Useful for now, but please prefer `database.authenticate()` once deploying to production :)
 */
-
+console.log("Helo????");
 database
 .sync().then(() => {
   app.listen({ port: PORT }, err => {
     if (err) {
       return console.error(err);
     }
-    console.log("New changes coming miour?");
+    console.log("New changes coming?");
     console.log(`🚀 Apollo Server ready at http://localhost:${PORT}/graphql`);
   });
   console.log("Database connection established FROM SERVER");

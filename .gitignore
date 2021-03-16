@@ -3,18 +3,10 @@
 .dockerignore
 server_package_notes
 
-home/node_modules/
-home/dist/
-home/src-ssr/
-
 client/node_modules/
 client/dist/
 client/src-ssr/
 
-old_services
-old_services/node_modules/
-old_services/dist/
-old_services/src-ssr/
-
 server/node_modules/
 server/dist/
+server/src/change.sh
