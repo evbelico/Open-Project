@@ -12,10 +12,7 @@ type User {
   birthday: DateTime!
   token: String!
   tokenExpired: Boolean!
-<<<<<<< HEAD
-=======
   validated: Boolean!
->>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
   createdAt: DateTime
   forumValidated: Int
   matchingValidated: Int
@@ -77,11 +74,8 @@ type Mutation {
     password: String!
   ): User!
   register(email: String!, password: String!, birthday: DateTime!): User
-<<<<<<< HEAD
-=======
   userExists(email: String!): User
   checkRegistrationToken(sentToken: String!): User
->>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
   modifierNom(email: String): User
   #   verifySignupToken(token: String!): Message!
 }

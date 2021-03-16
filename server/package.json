@@ -6,11 +6,7 @@
   "scripts": {
     "start": "nodemon -L -e ts --exec \"tsc -p ./tsconfig.json && node ./dist/server.js\"",
     "start:watch": "nodemon -L",
-<<<<<<< HEAD
-    "build": "tsc",
-=======
     "build": "tsc && cp ./src/graphql/schema.graphql ./dist/graphql/schema.graphql",
->>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

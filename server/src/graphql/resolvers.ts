@@ -6,15 +6,10 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS);
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
-<<<<<<< HEAD
-import { UserAttributes, UserCreationAttributes } from '../models/user'
-import { TokenAttributes, TokenCreationAttributes } from '../models/tokens'
-=======
 import { UserAttributes, UserCreationAttributes } from '../models/user';
 import { TokenAttributes, TokenCreationAttributes } from '../models/tokens';
 import { checkPasswordFormat } from '../utils/userModelFuncs';
 import { sendRegistrationMail } from '../utils/mailingFuncs';
->>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
 import models from '../models';
 
 export const resolvers = {
@@ -42,8 +37,6 @@ export const resolvers = {
       modifierNom: async (args, { models }) => {
         var toto = 1;
       },
-<<<<<<< HEAD
-=======
       userExists: async (parent, email: string, { models }): Promise<any> => {
         // console.log("User exists args :", email);
 
@@ -59,26 +52,11 @@ export const resolvers = {
           console.error('Error happened in finding if user exists :', error);
         }
       },
->>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
       // Account creation mutation
       register: async (parent, args, { models }): Promise<UserCreationAttributes> => {
         console.log("Signup : ", args);
 
         try {
-<<<<<<< HEAD
-          const hash: string = await bcrypt.hash(args.password, saltRounds);
-          const tokenHash: string = await crypto.randomBytes(46).toString('hex');
-
-          const userData: UserCreationAttributes = await models.User.create({
-            email: args.email,
-            birthday: args.birthday,
-            password: hash,
-            token: tokenHash,
-            tokenExpired: false,
-          });
-          
-          return userData;
-=======
           const passwordCheck = await checkPasswordFormat(args.password);
           const doesUserExist = await resolvers.Mutation.userExists(parent, args.email, { models });
           // console.log("Does user exist ?", doesUserExist);
@@ -106,17 +84,10 @@ export const resolvers = {
           } else {
             throw new Error(`User already exists : ${doesUserExist}`);
           }   
->>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
         } catch(error) {
           console.error("Error in user creation SEQUELIZE :", error);
         }
       },
-<<<<<<< HEAD
-      // Verify token created on account creation
-      // registerToken: async (parent, args, { models }) => {
-
-      // },
-=======
       checkRegistrationToken: async (parent, sentToken: any, { models }): Promise<UserAttributes> => {
         // console.log("Sent token :", sentToken.sentToken);
         if (sentToken !== null) {
@@ -153,7 +124,6 @@ export const resolvers = {
           throw new Error(`No token sent. See : ${sentToken}`);
         }
       },
->>>>>>> 02ec876b145d6d31cbc9c2e0ca56dd9e3f07bd96
         // Function for user creation tests purposes
         // Will need to be split in multiple functions later on
         testSignup: async (parent, args, ctx) => {
