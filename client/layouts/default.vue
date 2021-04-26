@@ -1,19 +1,41 @@
 <template>
   <div>
-    <div class="flex content-center justify-between bg-blue-400">
-      <img src="~assets/img/Logo.svg" alt="Scarabee logo" />
-      <!-- <div class="space-x-20" /> -->
-      <button
-        label="Toto"
-        class="bg-black text-white w-44"
-        @click="
-          {
-            alert('toto')
-          }
-        "
-      >
-        Toto
-      </button>
+    <!-- <div
+      class="grid grid-flow-col justify-between items-center bg-secondary w-screen"
+    > -->
+    <div
+      class="flex items-center flex-row justify-between bg-secondary w-screen mx-auto"
+    >
+      <div class="ml-2 my-2 w-5/12">
+        <!-- <div class="col-span-3 justify-self-stretch ml-2 my-2"> -->
+        <nuxt-link to="/">
+          <img
+            src="~assets/img/Logo.svg"
+            alt="Scarabee logo"
+            class="justify-self-start"
+          />
+        </nuxt-link>
+      </div>
+      <!-- <div class="space-x-10" /> -->
+      <!-- <div class="col-span-1 md:none"> -->
+      <div class="w-4/12 my-2">
+        <nuxt-link to="/register">
+          <button
+            label="Inscription"
+            class="bg-primary text-secondary font-semibold rounded-lg w-36 h-12 mx-5"
+          >
+            S'inscrire
+          </button>
+        </nuxt-link>
+        <NuxtLink to="/signin">
+          <button
+            label="Connexion"
+            class="bg-secondary text-primary font-semibold border-solid border-2 border-primary rounded-lg w-36 h-12 mx-5"
+          >
+            Connexion
+          </button>
+        </NuxtLink>
+      </div>
     </div>
     <div>
       <!-- <img src="~assets/img/Logo.svg" alt="Scarabee logo" /> -->

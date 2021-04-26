@@ -5,11 +5,12 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
-import { UserAttributes, UserCreationAttributes } from '../models/user';
+import { UserAttributes, UserCreationAttributes, UserErrorAttributes, UserLoginAttributes } from '../models/user';
 import { TokenAttributes, TokenCreationAttributes } from '../models/tokens';
-import { checkPasswordFormat } from '../utils/userModelFuncs';
-import { sendRegistrationMail } from '../utils/mailingFuncs';
+import { checkPasswordFormat, UserFuncsPayload } from '../utils/userModelFuncs';
+import { MailingFuncsPayload, sendRegistrationMail } from '../utils/mailingFuncs';
 import models from '../models';
 
 export const resolvers = {
@@ -37,7 +38,7 @@ export const resolvers = {
       modifierNom: async (args, { models }) => {
         var toto = 1;
       },
-      userExists: async (parent, email: string, { models }): Promise<any> => {
+      userExists: async (parent, email: string, { models }): Promise<boolean> => {
         // console.log("User exists args :", email);
 
         try {
@@ -53,12 +54,14 @@ export const resolvers = {
         }
       },
       // Account creation mutation
-      register: async (parent, args, { models }): Promise<UserCreationAttributes> => {
+      register: async (parent, args, { models }): Promise<UserCreationAttributes | UserErrorAttributes | UserFuncsPayload> => {
         console.log("Signup : ", args);
 
+        let userErrors: UserErrorAttributes | UserFuncsPayload | MailingFuncsPayload = { val: 0, message: ''};
         try {
+          console.log('Hello new registration ??');
           const passwordCheck = await checkPasswordFormat(args.password);
-          const doesUserExist = await resolvers.Mutation.userExists(parent, args.email, { models });
+          const doesUserExist: boolean = await resolvers.Mutation.userExists(parent, args.email, { models });
           // console.log("Does user exist ?", doesUserExist);
 
           if (doesUserExist === false) {
@@ -74,15 +77,21 @@ export const resolvers = {
                 tokenExpired: false,
               });
             
-              const sendmail = await sendRegistrationMail(args.email, tokenHash);
+              const sendmail: MailingFuncsPayload = await sendRegistrationMail(args.email, tokenHash);
+              if (sendmail.returnValue == -1) {
+                userErrors.val = -1;
+                userErrors.message = `Error happened with mailer : ${sendmail.message}`;
+              }
               console.log("Sending mail :", sendmail);
   
               return userData;
             } else {
-              throw new Error(`${passwordCheck.message}`);
+              return
             }
           } else {
-            throw new Error(`User already exists : ${doesUserExist}`);
+            userErrors.val = -1;
+            userErrors.message = "User exists";
+            return userErrors;
           }   
         } catch(error) {
           console.error("Error in user creation SEQUELIZE :", error);
@@ -124,77 +133,41 @@ export const resolvers = {
           throw new Error(`No token sent. See : ${sentToken}`);
         }
       },
-        // Function for user creation tests purposes
-        // Will need to be split in multiple functions later on
-        testSignup: async (parent, args, ctx) => {
-            console.log(args);
+      login: async(parent, args: UserLoginAttributes, { models }): Promise<UserLoginAttributes | UserErrorAttributes> => {
+        let loginErrors: UserErrorAttributes = {};
 
-            try {
-              const hashedPassword = await bcrypt.hash(args.password, saltRounds); // Hash input password
-              // const newToken = await crypto.randomBytes(16).toString('hex'); // Generate validation token
+        if (args.email !== '' && args.password !== '') {
+          console.log("Login args :", args);
 
-              // Instantiate SMTP with testing inbox
-              let transport = nodemailer.createTransport({
-                host: "smtp.mailtrap.io",
-                port: 2525,
-                auth: {
-                  user: "bd159a9a3a58bc",
-                  pass: "9f33f8b9dcc241"
-                }
-              });
+          const userData: any = await models.User.findOne({ where: { email: args.email }});
+          console.log("User exists ? :", userData);
+          if (userData !== null) {
+            console.log("HELLLOOOO");
+            const userPwd = await bcrypt.compare(args.password, userData.password);
+            console.log("Comparing password :", userPwd);
+            if (userPwd) {
+              console.log("Login successful !");
+              console.log("process env :", process.env);
+              const userJwt: any = await jwt.sign(
+                { userId: userData.id },
+                process.env.SECRET,
+                { expiresIn: "1h" },
+              );
 
-              // Create a new user using the provided data
-              const signupPayload = await ctx.prisma.users.create({
-                data: {
-                  firstName: args.firstName,
-                  lastName: args.lastName,
-                  email: args.email,
-                  password: hashedPassword,
-                },
-              });
-
-              // Create the validation token inside the corresponding table
-              const addToken = await ctx.prisma.tokens.create({
-                data: {
-                  // token: newToken,
-                  user: {
-                    // Connect the validation token to the new user
-                    connect: { id: signupPayload.id },
-                  },
-                },
-              });
-
-              // Account verification mail
-              const validationMail = {
-                from: 'test@the-undefined-project.com', // Sender address
-                to: signupPayload.email,         // List of recipients
-                subject: 'Verify your account | The Undefined Project', // Subject line
-                // text: `Click here in order to verify your email address and start navigating : http://localhost:8080/login/${newToken}`, // Plain text body
-                // html: `<html><a href="http://localhost:8080/login?token=${newToken}">Click here</a>
-                //   in order to verify your email address and start navigating !
-                //   <br />
-                //   If this does not work, just copy and paste this link in your favourite navigator : http://localhost:8080/login?token=${newToken} </html>`
-              };
-
-              // Send verification email to user email address
-              transport.sendMail(validationMail, function(err, info) {
-                if (err) {
-                  console.log(err)
-                } else {
-                  console.log(info);
-                }
-              });
-
-              // console.log("token baby :", newToken);
-              console.log("test serv: ", signupPayload);
-              console.log("add token :", addToken);
-
-              // Return data to the client side
-              return signupPayload;
-            } catch(error) {
-              console.error('Error :', error);
+              console.log("Jwt token :", userJwt);
             }
-        },
+          }
+          else {
+            loginErrors.message = "Invalid password";
+            loginErrors.val = -1;
+            return loginErrors;
+          }
+        } else {
+          loginErrors.message = "Empty args";
+          loginErrors.val = -1;
+          return loginErrors;
+        }
+      },
     },
   };
 

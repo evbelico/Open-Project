@@ -2,10 +2,10 @@
 
 import { regexp } from "sequelize/types/lib/operators";
 
-type UserFuncsPayload = {
-    message: string,
+export type UserFuncsPayload = {
+    message?: string,
     returnValue: number
-}
+};
 
 // const passwordRegex: function (params:type) {
     

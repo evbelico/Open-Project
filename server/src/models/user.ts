@@ -18,7 +18,25 @@ export interface UserAttributes {
     validated: boolean;
 }
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'pseudonym' | 'birthday' | 'validated'> {}
+export interface UserErrorAttributes {
+    val?: number;
+    message?: string;
+}
+
+export interface UserSession {
+    id: number;
+    dateCreated: number;
+    issued: number;
+    expires?: number;
+}
+
+export type UserLoginAttributes = {
+    email: string;
+    password: string;
+}
+
+
+export interface UserCreationAttributes extends Optional<UserAttributes, 'pseudonym' | 'birthday' | 'validated'>, UserErrorAttributes {}
 
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     public id!: number;

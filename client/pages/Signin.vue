@@ -1,57 +1,70 @@
 <template>
-  <q-page padding>
-    <q-form
-      class="q-gutter-md row items-center justify-around"
-      @submit="onSubmit"
-      @reset="onReset"
-    >
-      <div class="col-11">
-        <q-input
+  <div class="container mx-auto">
+    <form class="flex flex-col flex-nowrap items-center w-full" method="POST">
+      <h1 class="subtitle justify-start">Sign into your account</h1>
+      <div class="w-full sm:w-1/2 lg:w-1/3 text-left">
+        <label for="email" class="block">Email address *</label>
+        <input
           v-model="emailAddr"
-          class="q-my-md"
           type="email"
-          label="Adresse e-mail *"
-          rounded
-          standout
+          label="Enter your e-mail address"
+          class="rounded border-2 border-secondary w-full"
+          required
+          autocomplete="true"
         />
-        <q-input
-          v-model="password"
-          class="q-my-md"
-          type="password"
-          label="Mot de passe *"
-          rounded
-          standout
-        />
-        <!-- <q-btn
-          label="Reset"
-          type="reset"
-          color="primary"
-          flat
-          class="q-ml-sm"
-        /> -->
       </div>
-      <q-btn
-        label="Connexion"
-        class="justify-center"
-        type="submit"
-        color="primary"
-        text-color="secondary"
-      />
-    </q-form>
-  </q-page>
+    </form>
+  </div>
 </template>
 
-<script lang="ts">
-// import { defineComponent } from '@vue/composition-api';
-// import { useRouter, useRoute } from 'vue-router';
+<script lang="js">
+import gql from 'graphql-tag';
 
-// export default defineComponent({
-//   name: 'SigninPage',
-//   setup() {
-//     const router = useRouter();
-//     const route = useRoute();
-//     console.log('Helllooooo : ', route.params);
-//     console.log('Params :', route.currentRoute.params);
-//   }
-// });
+export default {
+  name: 'SigninPage',
+  data() {
+    return {
+      emailAddr: '',
+      password: '',
+      confirmAccount: false,
+    }
+  },
+  created() {
+    const routeVar = this.$route;
+    console.log(this.$route);
+    const objTest = Object.entries(routeVar.query);
+    if (objTest.length !== 0 && objTest[0] === "token" && objTest[1].length > 0) {
+      this.confirmAccount = true;
+      return this.verifyAccount(objTest[1]);
+    }
+    console.log("Testing object entries :", objTest );
+    // this.$route.query
+  },
+  methods: {
+    async verifyAccount(token) {
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation verifyUserAccount(
+            $sentToken: String!
+          ) {
+            checkRegistrationToken(sentToken: $sentToken) {
+              id
+              email
+              token
+              tokenExpired
+              validated
+            }
+          }
+        `,
+        variables: {
+          sentToken: token,
+        },
+      }).then((data) => {
+        console.log("Hello this is data :", data);
+      }).catch((error) => {
+        console.error("Error in account verif :", error);
+      });
+    },
+  }
+}
 </script>

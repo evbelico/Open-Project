@@ -30,20 +30,19 @@ const server = new ApolloServer({
 server.applyMiddleware({ app });
 
 app.use(bodyParser.json);
-app.use(cors);
+app.use(cors());
 
 const PORT = process.env.port || 4001;
 
-app.get('/', (req,res) => res.send('Express + TypeScript Server'));
-app.get('/health', (req, res) => {
-  res.send('It\'s all good here. :)');
-});
+// app.get('/', (req,res) => res.send('Express + TypeScript Server'));
+// app.get('/health', (req, res) => {
+//   res.send('It\'s all good here. :)');
+// });
 
 /* Sequelize instance to connect to the DB (using postgres credentials) ANDDDD! create tables which don't exist yet
 ** Use it to : connect to the db AND create tables, thus altering the database (and possibly DELETE what's inside)
 ** Useful for now, but please prefer `database.authenticate()` once deploying to production :)
 */
-console.log("Helo????");
 database
 .sync().then(() => {
   app.listen({ port: PORT }, err => {

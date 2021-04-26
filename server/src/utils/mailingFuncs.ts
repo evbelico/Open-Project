@@ -3,7 +3,12 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
 
-export const sendRegistrationMail = async (userEmail: string, userRegistrationToken: string) => {
+export type MailingFuncsPayload = {
+  message?: string,
+  returnValue: number
+};
+
+export const sendRegistrationMail = async (userEmail: string, userRegistrationToken: string) : Promise<MailingFuncsPayload> => {
     let transport = await nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -35,10 +40,10 @@ export const sendRegistrationMail = async (userEmail: string, userRegistrationTo
       transport.sendMail(validationMail, function(err, info) {
         if (err) {
           console.log(err);
-          return -1;
+          return { message: `Could not send mail. ERR : ${err}`, returnValue: -1};
         } else {
           console.log(info);
-          return 1;
+          return { message: '', returnValue: 1};
         }
       });
       return transport;

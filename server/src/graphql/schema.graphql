@@ -67,17 +67,11 @@ type Query {
 
 type Mutation {
   # signup(data: UserCreateInput!): User!
-  testSignup(
-    firstName: String
-    lastName: String
-    email: String!
-    password: String!
-  ): User!
   register(email: String!, password: String!, birthday: DateTime!): User
+  login(email: String!, password: String!): User
   userExists(email: String!): User
   checkRegistrationToken(sentToken: String!): User
   modifierNom(email: String): User
-  #   verifySignupToken(token: String!): Message!
 }
 
 input UserCreateInput {
